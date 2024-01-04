@@ -1,0 +1,277 @@
+{
+	"compiler": { "version": "0.8.9+commit.e5eed63a" },
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{ "inputs": [], "stateMutability": "nonpayable", "type": "constructor" },
+			{ "inputs": [], "name": "GetTokenCustomFeesFailed", "type": "error" },
+			{ "inputs": [], "name": "GetTokenTypeFailed", "type": "error" },
+			{ "inputs": [], "name": "SingleAssociationFailed", "type": "error" },
+			{ "inputs": [], "name": "TokenTransferFailed", "type": "error" },
+			{
+				"anonymous": false,
+				"inputs": [
+					{ "indexed": true, "internalType": "address", "name": "creator", "type": "address" },
+					{ "indexed": true, "internalType": "address", "name": "token", "type": "address" },
+					{ "indexed": true, "internalType": "address", "name": "beneficiary", "type": "address" },
+					{ "indexed": false, "internalType": "int64", "name": "amount", "type": "int64" }
+				],
+				"name": "AmountReleased",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [{ "indexed": false, "internalType": "uint256", "name": "newFee", "type": "uint256" }],
+				"name": "FeeUpdated",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{ "indexed": true, "internalType": "address", "name": "receiver", "type": "address" },
+					{ "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }
+				],
+				"name": "FeeWithdrawn",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{ "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" },
+					{ "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }
+				],
+				"name": "OwnershipTransferred",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{ "indexed": true, "internalType": "address", "name": "creator", "type": "address" },
+					{ "indexed": true, "internalType": "address", "name": "token", "type": "address" },
+					{ "indexed": true, "internalType": "address", "name": "beneficiary", "type": "address" },
+					{ "indexed": false, "internalType": "int64", "name": "amount", "type": "int64" },
+					{ "indexed": false, "internalType": "uint64", "name": "start", "type": "uint64" },
+					{ "indexed": false, "internalType": "uint64", "name": "vestingDuration", "type": "uint64" },
+					{ "indexed": false, "internalType": "uint64", "name": "periodDuration", "type": "uint64" }
+				],
+				"name": "ScheduleAdded",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [{ "indexed": true, "internalType": "address", "name": "token", "type": "address" }],
+				"name": "TokenAssociated",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{ "indexed": true, "internalType": "address", "name": "creator", "type": "address" },
+					{ "indexed": true, "internalType": "address", "name": "token", "type": "address" },
+					{ "indexed": true, "internalType": "address", "name": "beneficiary", "type": "address" },
+					{ "indexed": false, "internalType": "int64", "name": "amount", "type": "int64" }
+				],
+				"name": "VestingEnded",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "MAX_FEE_IN_TINYCENTS",
+				"outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{ "internalType": "address", "name": "token", "type": "address" },
+					{ "internalType": "address", "name": "beneficiary", "type": "address" },
+					{ "internalType": "int64", "name": "amount", "type": "int64" },
+					{ "internalType": "uint64", "name": "start", "type": "uint64" },
+					{ "internalType": "uint64", "name": "vestingDuration", "type": "uint64" },
+					{ "internalType": "uint64", "name": "periodDuration", "type": "uint64" }
+				],
+				"name": "addSchedule",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [{ "internalType": "address", "name": "token", "type": "address" }],
+				"name": "associateToken",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "feeOfAddingInTinycents",
+				"outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "feeOfWithdrawalInTinycents",
+				"outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{ "internalType": "address", "name": "token", "type": "address" },
+					{ "internalType": "address", "name": "creator", "type": "address" },
+					{ "internalType": "address", "name": "beneficiary", "type": "address" }
+				],
+				"name": "getVestingInfo",
+				"outputs": [
+					{
+						"components": [
+							{ "internalType": "uint64", "name": "start", "type": "uint64" },
+							{ "internalType": "uint64", "name": "vestingDuration", "type": "uint64" },
+							{ "internalType": "uint64", "name": "periodDuration", "type": "uint64" },
+							{ "internalType": "int64", "name": "totalAmount", "type": "int64" },
+							{ "internalType": "int64", "name": "releasedAmount", "type": "int64" }
+						],
+						"internalType": "struct DaVinciGraphTokenVesting.VestingInfo",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{ "inputs": [], "name": "renounceOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+			{
+				"inputs": [{ "internalType": "address", "name": "newOwner", "type": "address" }],
+				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [{ "internalType": "uint256", "name": "_feeOfAddingInTinycents", "type": "uint256" }],
+				"name": "updateFee",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{ "internalType": "address", "name": "", "type": "address" },
+					{ "internalType": "address", "name": "", "type": "address" },
+					{ "internalType": "address", "name": "", "type": "address" }
+				],
+				"name": "vestingSchedules",
+				"outputs": [
+					{ "internalType": "uint64", "name": "start", "type": "uint64" },
+					{ "internalType": "uint64", "name": "vestingDuration", "type": "uint64" },
+					{ "internalType": "uint64", "name": "periodDuration", "type": "uint64" },
+					{ "internalType": "int64", "name": "totalAmount", "type": "int64" },
+					{ "internalType": "int64", "name": "releasedAmount", "type": "int64" }
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{ "inputs": [], "name": "withdrawFees", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+			{
+				"inputs": [
+					{ "internalType": "address", "name": "token", "type": "address" },
+					{ "internalType": "address", "name": "creator", "type": "address" },
+					{ "internalType": "address", "name": "beneficiary", "type": "address" }
+				],
+				"name": "withdrawReleasedAmount",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"owner()": { "details": "Returns the address of the current owner." },
+				"renounceOwnership()": {
+					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
+				},
+				"transferOwnership(address)": {
+					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+				}
+			},
+			"version": 1
+		},
+		"userdoc": { "kind": "user", "methods": {}, "version": 1 }
+	},
+	"settings": {
+		"compilationTarget": { "DaVinciGraphTokenVesting.sol": "DaVinciGraphTokenVesting" },
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": { "bytecodeHash": "ipfs" },
+		"optimizer": { "enabled": true, "runs": 200 },
+		"remappings": []
+	},
+	"sources": {
+		"DaVinciGraphTokenVesting.sol": {
+			"keccak256": "0xea782bfbee1b31f01c5b7009f2ac08b52ac0bedab9c1903486921483d0eb41f0",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6b3d65c713ab46301e0652c023698d50e66245b3b2374c38c878431cad2b843c",
+				"dweb:/ipfs/QmQAiRXW98wp6yRnNzciEd8ME5zyAJQshPokdTrLAFs3ym"
+			]
+		},
+		"hedera/HederaResponseCodes.sol": {
+			"keccak256": "0x0cc2b3a942f385ce6a1656b71fde674834748fd113f23e3a1ec10fd03c239b60",
+			"license": "Apache-2.0",
+			"urls": [
+				"bzz-raw://5c408006afd10a9d78175c52a9651ede1948edc01a0485a6af312adaf7e14fb0",
+				"dweb:/ipfs/QmTnbEzMECiwdkqqXkUd8hoJbcSEaHHyexWRHo66k7MDq2"
+			]
+		},
+		"hedera/IExchangeRate.sol": {
+			"keccak256": "0x37ce49aa4acc1d03d9a86ab57e3f7ec5a7af7f2bef280c439c433de22a3fff32",
+			"license": "Apache-2.0",
+			"urls": [
+				"bzz-raw://73c9cd7622d63b5f70eff9626add0125bd622cb177a7068ef46f3d0b79e261f3",
+				"dweb:/ipfs/QmNpwMumpbdbzH3cmtz1R5EvbRJEsUNZz3yYE7h5Jz5Tvt"
+			]
+		},
+		"hedera/IHederaTokenService.sol": {
+			"keccak256": "0x15094410e98697c5d6e5a93580f6f70e92f360fdce507d0a4ab87b4769dd629f",
+			"license": "Apache-2.0",
+			"urls": [
+				"bzz-raw://d5e8ec1d18c664c8ad536eb0c507cadaa120cff904f01f13eff32fd730e190ce",
+				"dweb:/ipfs/QmXviqCmkkvVBbCJzHYPasqBAnU1Lbq9EWfcUDdPm92wdv"
+			]
+		},
+		"hedera/SafeHTS.sol": {
+			"keccak256": "0xab423e56a1268f4ae937d9fb6b3a47fda07d7c4e2bbaac6936890d0649c853e6",
+			"license": "Apache-2.0",
+			"urls": [
+				"bzz-raw://dfd6de446c16a227aafbb81b84a5c2332ca1c993271786e03f0ede905441ae70",
+				"dweb:/ipfs/Qme73ZfGGv5deZhgyZYoeBYxWXrHWaxh6Vzwot7CmtWXZG"
+			]
+		},
+		"openzeppelin/Ownable.sol": {
+			"keccak256": "0xf8f40d61f4667475fbc89295b9250c178b1141b66d7aebdf7cc29c92142ba90b",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://260f7f237eab9098a281920fc02e01a699f876e5869b55879d9b8820d23bde21",
+				"dweb:/ipfs/QmdRQWVzNysdW7Dm2Ptp5NtZ2d62v5oYsn1sMHgjPMKMFu"
+			]
+		},
+		"openzeppelin/ReentrancyGuard.sol": {
+			"keccak256": "0x16365423427d19dbd6e13e440ba7b5cf64f76b6d199ca653541fbd6374483333",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://c9a334e4bc30b01dc941e6c87ba9e3d5a1ae54243e714b145a2dba1e1d388cf5",
+				"dweb:/ipfs/QmPPrWen6JL16GJ4A5gCbqqyxfZ3EVd98ANUNWy8rYHXwi"
+			]
+		}
+	},
+	"version": 1
+}
